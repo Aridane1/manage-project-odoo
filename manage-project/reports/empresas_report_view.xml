@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <template id="empresa_contratadora_report_template">
+            <t t-call="web.html_container">
+                <head>
+                    <style>
+                        .table1 {
+                            border-bottom: 1px solid #000000;
+                            border-top: 1px solid #000000;
+                            border-spacing: 0px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            align: center; 
+                        }
+                        .table1 tbody tr:nth-of-type(odd) {
+                            background-color: #d6dbdf;
+                        }
+                        .table2 {
+                            width: 100%;
+                            border-bottom: 1px solid #000000;
+                            align: center;
+                        }
+                        .tr2 {
+                            border-bottom: 1px solid #000000;
+                        }
+                    </style>
+                </head>
+                <div class="page">
+                    <table class="table1">
+                        <thead>
+                            <tr class="tr2">
+                                <td width="300" align="center">
+                                    <font sizes="5">
+                                        <b>Empresa</b>
+                                    </font>
+                                </td>
+                                <td width="300" align="center">
+                                    <font sizes="5">
+                                        <b>Cantidad de Proyectos</b>
+                                    </font>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr1" t-foreach='docs' t-as='o'>
+                                <td class="td1" width="300">
+                                    <span t-esc="o.name" />
+                                </td>
+                                <td class="td1" width="300">
+                                    <span t-esc="o.cantidad_proyectos" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

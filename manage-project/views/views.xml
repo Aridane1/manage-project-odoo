@@ -1,0 +1,77 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="empresa_contratadora_tree">
+      <field name="name">empresa_contratadora.tree</field>
+      <field name="model">empresa_contratadora</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="cantidad_proyectos"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="project_project_extended" model="ir.ui.view">
+      <field name="name">project.project.extended</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project"/>
+      <field name="arch" type="xml">
+        <field name="user_id" position="after">
+          <field name="empresa_contratadora_id"/>
+        </field>
+        <xpath expr="//page" position="after">
+          <page string="Tareas" name="Ficha_prueba_clientes">
+            <field name="tasks_ids" />
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_empresa_contratadora_form" model="ir.ui.view">
+      <field name="name">empresa_contratadora.form</field>
+      <field name="model">empresa_contratadora</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="proyectos">
+                <tree>
+                  <field name="name"/>
+                </tree>
+              </field>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Registros de Acciones -->
+    <record model="ir.actions.act_window" id="empresa_contratadoras_action_window">
+      <field name="name">Empresas Contratadoras</field>
+      <field name="res_model">empresa_contratadora</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="project_action_window">
+      <field name="name">Proyectos</field>
+      <field name="res_model">project.project</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="tarea_action_window">
+      <field name="name">Tareas</field>
+      <field name="res_model">project.task</field>
+      <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <!-- Registros de Menús -->
+    <menuitem name="Gestion de Proyectos" id="menu_root"/>
+    <menuitem name="Gestion de Proyectos" id="gestion_proyectos_menu" parent="menu_root"/>
+    <menuitem name="Empresas Contratadoras" id="menu_empresas_contratadoras" parent="menu_root" action="empresa_contratadoras_action_window" />
+    <menuitem name="Proyectos" id="menu_proyectos" parent="menu_root" action="project_action_window"/>
+    <menuitem name="Tareas" id="menu_tarea" parent="menu_root" action="tarea_action_window"/>
+
+  </data>
+</odoo>

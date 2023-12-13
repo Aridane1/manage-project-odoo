@@ -1,0 +1,23 @@
+<!-- security/groups.xml -->
+
+<odoo>
+    <record id="group_administrator" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="comment">Grupo con permisos completos para administradores.</field>
+    </record>
+
+    <record id="group_project_manager" model="res.groups">
+        <field name="name">Jefe de Proyectos</field>
+        <field name="comment">Grupo para jefes de proyectos con permisos CRUD para empresas-contratadoras, proyectos y tareas.</field>
+    </record>
+
+    <record id="group_analyst" model="res.groups">
+        <field name="name">Analista</field>
+        <field name="comment">Grupo para analistas con permisos de solo lectura para empresas-contratadoras y proyectos. Puede crear tareas.</field>
+    </record>
+
+    <record id="group_programmer" model="res.groups">
+        <field name="name">Programador</field>
+        <field name="comment">Grupo para programadores con permisos para modificar tareas, pero no para crear ni eliminar tareas.</field>
+    </record>
+</odoo>
