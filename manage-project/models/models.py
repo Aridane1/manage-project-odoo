@@ -20,6 +20,25 @@ class empresa_contratadora(models.Model):
     def _compute_cantidad_proyectos(self):
         for empresa_contratadora in self:
             empresa_contratadora.cantidad_proyectos = len(empresa_contratadora.proyectos)
+    @api.model
+    def create(self, vals):
+        new_record = super(empresa_contratadora, self).create(vals)
+        self.env['registro.creacion.modificacion'].create({
+            'creador_id': self.env.uid,
+            'nombre_empresa': new_record.name,
+            'tipo_accion': 'creacion',
+        })
+        return new_record
+
+    def write(self, vals):
+        result = super(empresa_contratadora, self).write(vals)
+        for record in self:
+            self.env['registro.creacion.modificacion'].create({
+                'creador_id': self.env.uid,
+                'nombre_empresa': record.name,
+                'tipo_accion': 'modificacion',
+            })
+        return result
 
 
 class ProjectProject(models.Model):
@@ -41,6 +60,15 @@ class ResConfigSettings(models.TransientModel):
         string="Mostrar campo País",
         config_parameter='empresa_contratadora.show_country_place',
     )
+    class RegistroCreacionModificacion(models.Model):
+        _name = 'registro.creacion.modificacion'
+        _description = 'Registro de Creación y Modificación de Empresas'
+
+        creador_id = fields.Many2one('res.users', string='Creado por', readonly=True)
+        nombre_empresa = fields.Char(string='Nombre de la Empresa', readonly=True)
+        fecha_hora_creacion = fields.Datetime(string='Fecha/Hora de Creación', default=fields.Datetime.now, readonly=True)
+        tipo_accion = fields.Selection([('creacion', 'Creación'), ('modificacion', 'Modificación')], string='Tipo de Acción', readonly=True)
+
 
     # show_business_type = fields.Boolean(
     #     'Mostrar tipo de negocio',

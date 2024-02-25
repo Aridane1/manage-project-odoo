@@ -47,6 +47,30 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="registro_creacion_modificacion_tree_view">
+      <field name="name">registro.creacion.modificacion.tree</field>
+      <field name="model">registro.creacion.modificacion</field>
+      <field name="arch" type="xml">
+          <tree>
+              <field name="creador_id"/>
+              <field name="nombre_empresa"/>
+              <field name="fecha_hora_creacion"/>
+              <field name="tipo_accion"/>
+          </tree>
+      </field>
+  </record>
+  
+  <record model="ir.actions.act_window" id="registro_creacion_modificacion_action">
+      <field name="name">Registro de Creaciones y Modificaciones</field>
+      <field name="res_model">registro.creacion.modificacion</field>
+      <field name="view_mode">tree</field>
+  </record>
+  
+  <menuitem id="menu_registro_creacion_modificacion"
+            name="Registro de Creaciones y Modificaciones"
+            parent="base.menu_management"
+            action="registro_creacion_modificacion_action"/>
+  
 
     <!-- Registros de Acciones -->
     <record model="ir.actions.act_window" id="empresa_contratadoras_action_window">
@@ -89,6 +113,9 @@
                   <div class="content-group mt16">
                     <field name="show_country_place" />
                     <label for="show_country_place" />
+                    <div class="o_setting_right_pane">
+                      <button type="action" name="%(registro_creacion_modificacion_action)d" class="btn btn-primary">Ver Registro de Creaciones y Modificaciones</button>
+                  </div>
                   </div>
                 </div>
               </div>
