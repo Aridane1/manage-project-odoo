@@ -20,4 +20,11 @@
         <field name="name">Programador</field>
         <field name="comment">Grupo para programadores con permisos para modificar tareas, pero no para crear ni eliminar tareas.</field>
     </record>
+
+    <record id="registro_creacion_modificacion_access_rule" model="ir.rule">
+        <field name="name">Registro Creacion Modificacion: acceso Jefe de Proyectos</field>
+        <field name="model_id" ref="model_registro_creacion_modificacion"/>
+        <field name="domain_force">[]</field> 
+        <field name="groups" eval="[(4, ref('group_project_manager'))]"/>
+    </record>
 </odoo>
